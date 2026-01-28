@@ -90,28 +90,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Typing Effect
     const textElement = document.querySelector('.typing-text');
-    const texts = ["Learner", "Innovator", "Developer"];
-    let count = 0;
-    let index = 0;
-    let currentText = '';
-    let letter = '';
+    if (textElement) {
+        const texts = ["Learner", "Innovator", "Developer"];
+        let count = 0;
+        let index = 0;
+        let currentText = '';
+        let letter = '';
 
-    (function type() {
-        if (count === texts.length) {
-            count = 0;
-        }
-        currentText = texts[count];
-        letter = currentText.slice(0, ++index);
-        
-        textElement.textContent = letter;
-        if (letter.length === currentText.length) {
-            count++;
-            index = 0;
-            setTimeout(type, 2000); // Wait before next word
-        } else {
-            setTimeout(type, 150);
-        }
-    })();
+        (function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+            letter = currentText.slice(0, ++index);
+            
+            textElement.textContent = letter;
+            if (letter.length === currentText.length) {
+                count++;
+                index = 0;
+                setTimeout(type, 2000); // Wait before next word
+            } else {
+                setTimeout(type, 150);
+            }
+        })();
+    }
 
     // Smooth Scrolling for Nav Links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -148,8 +150,7 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
-    // Add CSS class for hidden sections dynamically if not in CSS
-    // But better to verify style.css has it? I'll add the style injection just in case.
+    // Add CSS class for hidden sections
     const style = document.createElement('style');
     style.innerHTML = `
         .hidden {
@@ -169,16 +170,6 @@ document.addEventListener('DOMContentLoaded', () => {
         updateNavbarBackground();
     });
 
-    // Also update navbar on theme switch while scrolled?
-    // The scroll listener handles it on scroll, but if we toggle while scrolled:
-    // We might need to refresh the navbar style in the toggle handler.
-    // Enhanced Toggle Handler to fix navbar if scrolled
-    /* 
-       (Already handled simply by CSS variables usually, but 'navbar' uses inline styles in my scroll logic.
-        I should fix that to use classes or CSS variables instead of inline styles for better compliance.)
-        
-       Let's stick to the current JS for now, it's safer than rewriting the whole logic blindly.
-    */
     // Contact Form & EmailJS
     const contactForm = document.getElementById('contact-form');
     const successModal = document.getElementById('success-modal');
